@@ -1,4 +1,4 @@
-# brams-math-methods
+# brams-prodedural-dungeon-generator
 An outline and code sample for how one could generate a maze
 README by Abram Rodgers
 # Contact: AKS.Rodgers (at) gmail (dot) com
