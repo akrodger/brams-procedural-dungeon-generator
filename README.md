@@ -1,5 +1,11 @@
+# brams-math-methods
+An outline and code sample for how one could generate a maze
+README by Abram Rodgers
+# Contact: AKS.Rodgers (at) gmail (dot) com
 
-An outline of my maze generating algorithm:
+---------------------------------------------
+|An outline of my maze generating algorithm:|
+---------------------------------------------
           
      This process will take an n by m integer matrix and procedurally fill it
      with paths and rooms, like a classic Rogue style maze. The algorithm is
@@ -111,5 +117,5 @@ An outline of my maze generating algorithm:
             -go back to line [1]
     
        Once all rooms are connected, our maze is done.
-                                                                            QED
+                                                                            
     
