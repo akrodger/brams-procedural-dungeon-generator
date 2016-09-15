@@ -1,42 +1,25 @@
-<!doctype html>
-<!-- The Time Machine GitHub pages theme was designed and developed by Jon Rohan, on Feb 7, 2012. -->
-<!-- Follow him for fun. http://twitter.com/jonrohan. Tail his code on https://github.com/jonrohan -->
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Bram&#39;s Procedural Dungeon Generator by akrodger</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Bram&#39;s Procedural Dungeon Generator</h1>
+      <h2 class="project-tagline">An outline and code sample for how one could generate a maze</h2>
+      <a href="https://github.com/akrodger/brams-procedural-dungeon-generator" class="btn">View on GitHub</a>
+      <a href="https://github.com/akrodger/brams-procedural-dungeon-generator/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/akrodger/brams-procedural-dungeon-generator/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
 
-  <link rel="stylesheet" href="stylesheets/stylesheet.css" media="screen">
-  <link rel="stylesheet" href="stylesheets/github-dark.css">
-  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-  <script type="text/javascript" src="javascripts/script.js"></script>
-
-  <title>Bram&#39;s Procedural Dungeon Generator</title>
-  <meta name="description" content="An outline and code sample for how one could generate a maze">
-
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-
-</head>
-
-<body>
-
-  <div class="wrapper">
-    <header>
-      <h1 class="title">Bram&#39;s Procedural Dungeon Generator</h1>
-    </header>
-    <div id="container">
-      <p class="tagline">An outline and code sample for how one could generate a maze</p>
-      <div id="main" role="main">
-        <div class="download-bar">
-        <div class="inner">
-          <a href="https://github.com/akrodger/brams-procedural-dungeon-generator/tarball/master" class="download-button tar"><span>Download</span></a>
-          <a href="https://github.com/akrodger/brams-procedural-dungeon-generator/zipball/master" class="download-button zip"><span>Download</span></a>
-          <a href="https://github.com/akrodger/brams-procedural-dungeon-generator" class="code">View Bram&#39;s Procedural Dungeon Generator on GitHub</a>
-        </div>
-        <span class="blc"></span><span class="trc"></span>
-        </div>
-        <article class="markdown-body">
-          <h1>
+    <section class="main-content">
+      <h1>
 <a id="brams-prodedural-dungeon-generator" class="anchor" href="#brams-prodedural-dungeon-generator" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Bram's Prodedural Dungeon Generator</h1>
 
 <p>An outline and code sample for how one could generate a maze
@@ -59,137 +42,130 @@ README by Abram Rodgers</p>
 
 <hr>
 
-<pre><code>    This process will take an n by m integer matrix and procedurally fill it
-    with paths and rooms, like a classic Rogue style maze. The algorithm is
-    outlined by the following instructions:
+<pre><code>     This process will take an n by m integer matrix and procedurally fill it
+     with paths and rooms, like a classic Rogue style maze. The algorithm is
+     outlined by the following instructions:
 
-    1) It is suffient to say that a room is defined by 2 points
-       This is because each room, in this algorithm, is a rectangle.
-       since rectangles have perpendicular sides,  we can spread out the sides
-       above/below and left/right of these 2 corners to find the other 2.
-       Therefore, a room can be stored as a 4 component array of integers
-       where an the first two and second two numbers each refer to a position
-       in the matrix titled maze. I will use the terms 4-component integer
-       array and 4-vector interchangeably.
+     1) It is sufficent to say that a room is defined by 2 points
+        This is because each room, in this algorithm, is a rectangle.
+        Since rectangles have perpendicular sides, we can spread out the sides
+        above/below and left/right of these 2 corners to find the other 2.
+        Therefore, a room can be stored as a 4 component array of integers
+        where an the first two and second two numbers each refer to a position
+        in the matrix titled maze. I will use the terms 4-component integer
+        array and 4-vector interchangeably.
 
-    2) For the first room, in the 0th and 2nd components of a 4-vector,
-       assign random integers such that the difference of their values 
-       is greater than 1 and they lie in the range from 0 to n - 1.Similarly, 
-       in the first and 3rd components, assign values such that their 
-       difference is greater than 1 and they lie in random from 0 to m - 1
-       Ranges are inclusive. If our vector's components are written in the
-       notation v = [v_0, ... , v_3] then this vector:
+     2) For the first room, in the 0th and 2nd components of a 4-vector,
+        assign random integers such that the difference of their values 
+        is greater than 1 and they lie in the range from 0 to n - 1. Similarly, 
+        in the first and 3rd components, assign values such that their 
+        difference is greater than 1 and they lie in random from 0 to m - 1
+        Ranges are inclusive. If our vector's components are written in the
+        notation v = [v_0, ... , v_3] then this vector:
 
-                                  v = [2, 5, 5, 7]
+                              v = [2, 5, 5, 7]
 
-       Would equate to this room in a 10 by 10 matrix:
+        Would equate to this room in a 10 by 10 matrix:
 
                            # # # # # # # # # #    'P' is the the location of 
                            # # # # # # # # # #    a generated point for a room
-      '#'means empty       # # # # # P - C # #    
-       space or Wall       # # # # # | . | # #    'C' repersents the connection
+        '#' means empty    # # # # # P - C # #    
+        space or Wall      # # # # # | . | # #    'C' represents the connection
                            # # # # # | . | # #    of two generated points.
                            # # # # # C - P # #    
                            # # # # # # # # # #    '-' and '|' are horizontal
-                           # # # # # # # # # #     and vertical connectors
-                           # # # # # # # # # #     respectively. All non-'#'
-                           # # # # # # # # # #     chars are walkable tiles
+                           # # # # # # # # # #    and vertical connectors
+                           # # # # # # # # # #    respectively. All non-'#'
+                           # # # # # # # # # #    chars are walkable tiles
 
-       Take note that these characters are not the literal value of the
-       matrix storing the room. I am just using them as tiles for a
-       visualization effect. There will be integers to represent the actual
-       tiles.
+        Take note that these characters above are not the literal value of the
+        matrix storing the room. I am just using them as tiles for a
+        visualization effect. There will be integers to represent the actual
+        tiles.
 
-       Each room vector is stored in a matrix, making a matrix where
-       each row refers to a single room. this matrix has size 
-       finalRooms by 4 and generating such a matrix is sufficient to creating
-       all of the rooms necessary for a floor.
+        Each room vector is stored in a matrix, making a matrix where
+        each row refers to a single room. This matrix has size 
+        p by 4 (p is the number of rooms desired). Generating such a matrix is
+        sufficient to creating all of the rooms necessary for a floor.
 
-    3) Making any room after the first one requires a bit of extra tip-toing.
-       We have two options, rooms can overlap or rooms may not overlap.Let us
-       use this function to help us:
+     3) Making any room after the first one requires a bit of extra tip-toing.
+        We have two options, rooms can overlap or rooms may not overlap. Let us
+        use this function to help us:
 
-                       int inRoom(int point[2], int room[4]);
+                      int inRoom(int point[2], int room[4]);
 
-       It will return 1 if point is enclosed by Room, 0 otherwise.
-       Note that in the pic above, anything point not labeled '#' returns 1.
+        It will return 1 if point is enclosed by Room, 0 otherwise.
+        Note that in the pic above, any point not labeled '#' returns 1.
 
-       If we do not want rooms to overlap, we can use this function to set off
-       a flag which prevents goes up if a given vector would cause any tiles
-       from the rooms matrix to change tiles of older rooms in dungeon matrix.
-       See isStronglyConnected() below for further use .
+        If we do not want rooms to overlap, we can use this function to set off
+        a flag which goes up if a given vector would cause any interference
+        between two rooms.
+        See isStronglyConnected() below for further use.
 
-       If we don't mind about overlaps, then no such extra processing is
-       necessary.
+        If we don't mind about overlaps, then no such extra processing is
+        necessary.
 
-    4) We now have a matrix filled with rooms which are are either overlapping
-       or disconnected. If the rooms are overlapping, the we do not need to
-       connect them through hallways.If any room is disjoint from all other
-       rooms, then we must connect it so that one could traverse the whole
-       maze.It will be convenient to keep track of which rooms are
-       overlapping and which aren't.Define the following terms:
+     4) We now have a matrix filled with rooms which are either overlapping
+        or disconnected. If the rooms are overlapping, the we do not need to
+        connect them through hallways.If any room is disjoint from all other
+        rooms, then we must connect it so that one could traverse the whole
+        maze. It will be convenient to keep track of which rooms are
+        overlapping and which aren't. Define the following terms:
 
-       Two columns of the finalRooms by 4 matrix are STRONGLY CONNECTED 
-       if they produce overlapping rooms. Strong connectedness implies 
-       connectedness:
+        Two rows of a p by 4 matrix are STRONGLY CONNECTED 
+        if they produce overlapping rooms.
 
-       If two columns are not strongly connected, then one can CONNECT them
-       by producing a point which is in neither room then connecting both
-       rooms to that point. These rooms are called CONNECTED.
+        Strong connectedness implies connectedness:    
+        If two columns are not strongly connected, then one can CONNECT them
+        by producing a point which is in neither room then connecting both
+        rooms to that point. These rooms are called CONNECTED.
 
-       Two rooms are connectedness is transitive. This property is stated so
-       that we need not necessarily connect all rooms to one another to make
-       a satisfactory maze. These functions will be useful:
+        Room connectedness is transitive. This property is stated so
+        that we need not necessarily connect all rooms to one another to make
+        a satisfactory maze. These functions will be useful:
 
-       int isConnected(roomMatrix[][4], int room1, int room2);
-       checks if the rooms are transitively connected. if they are, done.
-       If they are not, then it checks if they are directly connected. 
-       (through a connecting point/hallway or through strong connectedness)
-       The int params there are the number row of the matrix which is a room.
-       1 if connected, 0 otherwise.
+            int isConnected(roomMatrix[][4], int room1, int room2);
 
-       int isStronglyConnected(roomMatrix[][4], int room1, int room2);
-       similar to above, but just checks if two rooms overlap.
+        Checks if the rooms are transitively connected. If they are, done.
+        If they are not, then it checks if they are directly connected. 
+        (through a connecting point/hallway or through strong connectedness)
+        The int params are the rows of the matrix which stores rooms.
+        Returns 1 if connected, 0 otherwise.
 
-       int connectRooms(roomMatrix[][4], int room1, int room2);
-       checks if two rooms are connected, then connects them if they aren't.
-       return 1 if connected successfull, 0 if already connected
+            int isStronglyConnected(roomMatrix[][4], int room1, int room2);
 
-       We use these functions to connect all the rooms. If one room is
-       connected to every other room, then every room is connected to one
-       another. (Since connectedness is transitive.)
+        Similar to above, but just checks if two rooms overlap.
 
-       To connect all the rooms, use this loop:
-       [1] -Check if room 0 is connected to every other room sequentially
+                int connectRooms(roomMatrix[][4], int room1, int room2);
+
+        Checks if two rooms are connected, then connects them if they aren't.
+        Return 1 if connected successfully, 0 if already connected
+
+        We use these functions to connect all the rooms. If one room is
+        connected to every other room, then every room is connected to one
+        another. (Since connectedness is transitive.)
+
+        To connect all the rooms, use this loop:
+        [1] -Check if room 0 is connected to every other room sequentially
                 -if so, done
-           -if not, pick two arbitrary rooms.check if connected, 
-               -if they are, pick more arbitrary rooms until an unconnected 
+            -If not, pick two arbitrary rooms. 
+                -Check if connected, 
+                -If they are, pick more arbitrary rooms until an unconnected 
                     pair is found
-               -connect them
-           -go back to line [1]
+                -connect them
+            -go back to line [1]
 
-    Once all rooms are connected, our maze is done.
+       Once all rooms are connected, our maze is done.
 </code></pre>
-        </article>
-      </div>
-    </div>
-    <footer>
-      <div class="owner">
-      <p><a href="https://github.com/akrodger" class="avatar"><img src="https://avatars0.githubusercontent.com/u/22105013?v=3&amp;s=60" width="48" height="48"></a> <a href="https://github.com/akrodger">akrodger</a> maintains <a href="https://github.com/akrodger/brams-procedural-dungeon-generator">Bram&#39;s Procedural Dungeon Generator</a></p>
 
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/akrodger/brams-procedural-dungeon-generator">Bram&#39;s Procedural Dungeon Generator</a> is maintained by <a href="https://github.com/akrodger">akrodger</a>.</span>
 
-      </div>
-      <div class="creds">
-        <small>This page generated using <a href="https://pages.github.com/">GitHub Pages</a><br>theme by <a href="https://twitter.com/jonrohan/">Jon Rohan</a></small>
-      </div>
-    </footer>
-  </div>
-  <div class="current-section">
-    <a href="#top">Scroll to top</a>
-    <a href="https://github.com/akrodger/brams-procedural-dungeon-generator/tarball/master" class="tar">tar</a><a href="https://github.com/akrodger/brams-procedural-dungeon-generator/zipball/master" class="zip">zip</a><a href="" class="code">source code</a>
-    <p class="name"></p>
-  </div>
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
 
   
-</body>
+  </body>
 </html>
